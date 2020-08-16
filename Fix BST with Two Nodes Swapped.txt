@@ -1,0 +1,64 @@
+import java.util.*;
+import java.lang.*;
+class Node{
+	int data;
+	Node left,right;
+	Node(int val){
+		data = val;
+		left = null;
+		right = null;
+	}
+}
+class Tree{
+    int prev = Integer.MIN_VALUE;
+    Node p = null;
+    Node first = null;
+    Node second = null;
+	public void inorder(Node root) {
+		if(root == null)
+			return;
+		inorder(root.left);
+		System.out.println(root.data);
+		inorder(root.right);
+	}
+	public void fixBST(Node root) {
+		fixBSTHelper(root);
+		int t  = first.data;
+		first.data = second.data;
+		second.data = t;
+	}
+	public void fixBSTHelper(Node root) {
+		if(root == null)
+			return;
+		fixBSTHelper(root.left);
+		if(p!=null && p.data>root.data) {
+			if(first == null) {
+				first = p;
+			}
+			second = root;
+		}
+		p = root;
+		fixBSTHelper(root.right);
+	}
+	
+}
+public class Main
+{
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		Tree tree = new Tree();
+		Node root = null;
+		root = new Node(20);
+		root.left = new Node(60);
+		root.right = new Node(80);
+		root.left.left = new Node(4);
+		root.left.right = new Node(10);
+		root.right.right = new Node(100);
+		root.right.left = new Node(8);
+		tree.inorder(root);
+		
+		tree.fixBST(root);
+		System.out.println("After SWAP");
+		tree.inorder(root);
+	}
+}
