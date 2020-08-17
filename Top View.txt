@@ -1,0 +1,50 @@
+/*class Node
+{
+    int data;
+    Node left, right;
+
+    Node(int item)
+    {
+        data = item;
+        left = right = null;
+    }
+}*/
+class Pair
+{
+    Node node;
+    int hd;
+
+    Pair(Node k ,int h)
+    {
+        node = k;
+        hd = h;
+    }
+}
+
+class View
+{
+    // function should print the topView of the binary tree
+    static void topView(Node root)
+    {
+        if(root == null)
+          return;
+        Queue<Pair> q = new LinkedList<>();
+        Map<Integer,Integer> map = new TreeMap<>();
+        q.add(new Pair(root,0));
+        while(!q.isEmpty()){
+            Pair p = q.poll();
+            Node t = p.node;
+            int hdis = p.hd;
+            if(map.containsKey(hdis)==false)
+               map.put(hdis,t.data);
+            if(t.left!=null)
+               q.add(new Pair(t.left,hdis-1));
+             if(t.right!=null)
+                q.add(new Pair(t.right,hdis+1));
+            
+        }
+        for(Integer x : map.values()){
+            System.out.print(x+" ");
+        }
+    }
+}
