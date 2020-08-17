@@ -1,0 +1,22 @@
+class Tree{
+    public ArrayList <Integer> verticalSum(Node root) {
+        ArrayList<Integer> list = new ArrayList<>();
+        TreeMap<Integer,Integer> map  = new TreeMap<>();
+        Sum(root,0,map);
+        for(Integer x : map.values())
+           list.add(x);
+        return list;   
+    }
+    public void Sum(Node root,int hd,TreeMap<Integer,Integer> map){
+        if(root == null)
+           return;
+        Sum(root.left,hd-1,map);
+        if(map.containsKey(hd)==true){
+            int v = map.get(hd);
+            map.put(hd,v+root.data);
+        }else{
+            map.put(hd,root.data);
+        }
+        Sum(root.right,hd+1,map);
+    }
+}
