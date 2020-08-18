@@ -1,0 +1,30 @@
+class Tree
+{
+    // Return a list containing the inorder traversal of the given tree
+     ArrayList<Integer> postOrder(Node root)
+    {
+        ArrayList<Integer> list = new ArrayList<>();
+        Stack<Node> stack  = new Stack<>();
+        Node cur = root;
+        while(cur!=null || !stack.isEmpty() ){
+            if(cur!=null){
+                stack.push(cur);
+                cur = cur.left;
+            }else{
+                Node temp = stack.peek().right;
+                if(temp == null){
+                    temp = stack.pop();
+                    list.add(temp.data);
+                while(!stack.isEmpty() && temp == stack.peek().right){
+                    temp = stack.pop();
+                    list.add(temp.data); 
+                }    
+                }else{
+                    cur = temp;
+                }
+            }
+        }
+        return list;
+    }
+
+}
