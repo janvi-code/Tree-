@@ -1,0 +1,38 @@
+Node is as follows:
+class Node{
+    int data;
+    Node left;
+    Node right;
+    Node(int data){
+        this.data = data;
+        left=null;
+        right=null;
+    }
+}
+
+*/
+class Solution
+{   
+	public static ArrayList<Integer> printNearNodes(Node root, int low, int high)
+	{
+      ArrayList<Integer> res  = new ArrayList<>();
+      if(root == null )
+         return res;
+      find(root,low,high,res);     
+      return res;     
+    }
+    public static void find(Node root,int a,int b,ArrayList<Integer> list){
+        if(root == null)
+           return;
+        if(root.data>=a && root.data<=b){
+            find(root.left,a,b,list);
+            list.add(root.data);
+            find(root.right,a,b,list);
+        }else if(root.data>Math.max(a,b)){
+            find(root.left,a,b,list);
+        }else{
+            find(root.right,a,b,list);
+        }
+    }
+    
+}
