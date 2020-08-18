@@ -1,0 +1,46 @@
+
+class Solution
+{
+    // Return the minimum absolute difference between any tree node and the integer K
+    static int maxDiff(Node  root, int K) 
+    { 
+        int ceil = findCeil(root,K);
+        int floor = findFloor(root,K);
+        return Math.min(Math.abs(K-ceil),Math.abs(K-floor));
+    } 
+    static int findFloor(Node root,int val){
+        Node t = helper(root,val);
+        if(t.data>val)
+          return 0;
+        return t.data;  
+    }
+    static Node helper(Node root,int val){
+        if(root.data == val)
+           return root;
+        if((root.data<val && root.right == null)||(root.data>val && root.left== null))
+           return root;
+        if(root.data>val)
+          return helper(root.left,val);
+        else
+          return helper(root.right,val);
+    }
+     static int findCeil(Node root,int val){
+        Node res = null;
+        while(root!=null){
+            if(root.data==val)
+               return root.data;
+            else if(root.data>val){
+                res = root;
+                root = root.left;
+            }  
+            else{
+                root = root.right;
+            }
+        }
+        if(res!=null)
+        return res.data;
+        else
+        return 0;
+    }
+}
+
