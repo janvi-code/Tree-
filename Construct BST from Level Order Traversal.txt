@@ -1,0 +1,32 @@
+/*
+The structure of the Node is as follows:
+
+class Node {
+    int data;
+    Node left, right;
+    
+    public Node(int data){
+        this.data = data;
+    }
+}
+*/
+
+class GFG {
+    
+    public Node levelOrder(Node root,int e){
+        if(root == null)
+          return new Node(e);
+        else if(root.data>=e)
+          root.left = levelOrder(root.left,e);
+        else
+          root.right = levelOrder(root.right,e);
+        return root;  
+    }
+    
+    public Node constructBST(int[] arr){
+       Node root = null;
+       for(int i=0;i<arr.length;i++)
+        root =  levelOrder(root,arr[i]);
+       return root;
+    }
+}
